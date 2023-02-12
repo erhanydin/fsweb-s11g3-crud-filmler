@@ -6,10 +6,11 @@ import axios from "axios";
 const Movie = (props) => {
   const { addToFavorites } = props;
 
+  const { deleteMovie } = props;
+
   const [movie, setMovie] = useState("");
 
   const { id } = useParams();
-  const { push } = useHistory();
 
   useEffect(() => {
     axios
@@ -21,6 +22,8 @@ const Movie = (props) => {
         console.log(err.response);
       });
   }, [id]);
+
+  
 
   return (
     <div className="bg-white rounded-md shadow flex-1">
@@ -51,7 +54,7 @@ const Movie = (props) => {
       </div>
 
       <div className="px-5 py-3 border-t border-zinc-200 flex justify-end gap-2">
-        <button className="myButton bg-blue-600 hover:bg-blue-500 ">
+        <button onClick={() => addToFavorites(movie)} className="myButton bg-blue-600 hover:bg-blue-500 ">
           Favorilere ekle
         </button>
         <Link
@@ -60,7 +63,7 @@ const Movie = (props) => {
         >
           Edit
         </Link>
-        <button type="button" className="myButton bg-red-600 hover:bg-red-500">
+        <button onClick={() => deleteMovie(id)} type="button" className="myButton bg-red-600 hover:bg-red-500">
           Sil
         </button>
       </div>
